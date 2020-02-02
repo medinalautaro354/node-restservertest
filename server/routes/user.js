@@ -5,7 +5,9 @@ const _ = require('underscore')
 
 const User = require('../models/user');
 
-app.get('/users', function (req, res) {
+const { validateToken, validateAdminRole } = require('../middlewares/authentication');
+
+app.get('/users', validateToken, (req, res) => {
 
     let from = Number(req.query.from) || 0;
 
@@ -33,7 +35,7 @@ app.get('/users', function (req, res) {
         })
 });
 
-app.post('/users', function (req, res) {
+app.post('/users', [validateToken, validateAdminRole], (req, res) => {
 
     let body = req.body;
 
@@ -60,7 +62,7 @@ app.post('/users', function (req, res) {
 
 })
 
-app.put('/users/:id', function (req, res) {
+app.put('/users/:id', [validateToken, validateAdminRole], (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'image', 'role', 'state']);
@@ -82,7 +84,7 @@ app.put('/users/:id', function (req, res) {
     });
 })
 
-app.delete('/users/:id', function (req, res) {
+app.delete('/users/:id', [validateToken, validateAdminRole], (req, res) => {
 
     let id = req.params.id;
 

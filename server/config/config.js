@@ -20,3 +20,6 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.ConnectionString = connectionString;
+
+//Google client id
+process.env.CLIENT_ID = process.env.CLIENT_ID || '495541798646-1csjr5vbreps2t7o2pjnneaaf9csda5q.apps.googleusercontent.com';

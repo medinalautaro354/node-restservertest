@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
+const {loginWeb} = require('../interactors/authenticaton_interactor');
 
 app.post('/login', (req, res) => {
 
@@ -50,6 +51,9 @@ app.post('/login', (req, res) => {
     });
 })
 
+app.post('/login-web', (req, res) =>{
+    loginWeb(req, res);
+});
 
 //configuracion de google
 async function verify(token) {

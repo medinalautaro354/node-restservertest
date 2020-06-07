@@ -9,8 +9,8 @@ let validateToken = (req, res, next) => {
       return res.status(401).json({
         ok: false,
         err: {
-          message: "Token invalido."
-        }
+          message: "Token invalido.",
+        },
       });
     }
     //Creamos una nueva variable en la req y se guarda el usuario.
@@ -27,13 +27,13 @@ let validateTokenUrl = (req, res, next) => {
       return res.status(401).json({
         ok: false,
         err: {
-          message: "Token invalido."
-        }
+          message: "Token invalido.",
+        },
       });
     }
     //Creamos una nueva variable en la req y se guarda el usuario.
     req.user = decode.user;
-    
+
     next();
   });
 };
@@ -46,16 +46,28 @@ let validateAdminRole = (req, res, next) => {
     return res.status(400).json({
       ok: false,
       err: {
-        message: "No tiene permisos."
-      }
+        message: "No tiene permisos.",
+      },
     });
   }
 
   next();
 };
 
+let validateUserweb = (req, res, next) => {
+  let user = req.user;
+
+  if (user.role != "ADMIN_ROLE" || user.role != "EMPLOYEE_ROLE") {
+    return res.status(400).json({
+      ok: false,
+      err: {
+        message: "No tiene permisos.",
+      },
+    });
+  }
+};
 module.exports = {
   validateToken,
   validateAdminRole,
-  validateTokenUrl
+  validateTokenUrl,
 };

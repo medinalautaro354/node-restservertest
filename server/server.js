@@ -6,7 +6,7 @@ const path = require('path');
 require('./config/config');
 
 // parse application/x-www-form-urlencoded middleware son los use
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
